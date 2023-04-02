@@ -8,7 +8,7 @@ trait MagicGet
      * @param string $name
      * @return void
      */
-    public function __get(string $name): mixed
+    public function __get(string $name)
     {
         $name = strtoupper($name);
         $methodName = "get{$name}";
