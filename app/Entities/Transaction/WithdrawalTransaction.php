@@ -2,7 +2,7 @@
 
 namespace App\Entities\Transaction;
 
-class WithdrawalTransaction
+class WithdrawalTransaction extends Transaction
 {
 
 }

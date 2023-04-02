@@ -2,9 +2,14 @@
 
 namespace App\Entities\Account;
 
+use App\Entities\Transaction\Transaction;
+use App\Helpers\Finance;
+
 class Account
 {
     private int $balance;
+
+    private iterable $transctions;
 
     /**
      * Set account balance
@@ -25,5 +30,37 @@ class Account
     public function getBalance(): int
     {
         return $this->balance;
+    }
+
+    /**
+     * Add transaction
+     *
+     * @param Transaction $transaction
+     * @return void
+     */
+    public function addTransaction(Transaction $transaction): void
+    {
+        // TODO: We should use Helper here
+        $this->transctions[] = $transaction;
+    }
+
+    /**
+     * Retrieve account transactions
+     *
+     * @return iterable<Transaction>
+     */
+    public function getTransactions(): iterable
+    {
+        return $this->transctions;
+    }
+
+    /**
+     * Save Account to storage
+     *
+     * @return void
+     */
+    public function save(): void
+    {
+         // $this->balance = Finance::addCoins($this->balance);
     }
 }

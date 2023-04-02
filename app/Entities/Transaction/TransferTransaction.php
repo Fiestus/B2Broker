@@ -2,7 +2,7 @@
 
 namespace App\Entities\Transaction;
 
-class TransferTransaction
+class TransferTransaction extends Transaction
 {
 
 }

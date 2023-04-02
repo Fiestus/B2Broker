@@ -5,6 +5,8 @@ namespace App\Services\Transaction;
 use App\DTO\TransactionData;
 use App\DTO\WithdrawalTransactionData;
 use App\Entities\Account\Account;
+use App\Exceptions\TransactionServiceException;
+use App\Entities\Transaction\WithdrawalTransaction;
 
 class WithdrawalTransactionService extends TransactionService
 {
@@ -23,11 +25,17 @@ class WithdrawalTransactionService extends TransactionService
         $currentAmount = $this->account->getBalance();
         $withdrawalAmount = $this->transactionData->amount->getAmount();
 
-        // TODO: Maybe Exception?
         if ($currentAmount >= $withdrawalAmount) {
-            $amount = $currentAmount - $withdrawalAmount;
-            // TODO: What about transaction?
-            $this->account->setBalance($amount);
+            try {
+                $amount = $currentAmount - $withdrawalAmount;
+                $transaction = new WithdrawalTransaction($this->transactionData->comment, $withdrawalAmount);
+                $this->account->addTransaction($transaction);
+                $this->account->setBalance($amount);
+                $this->account->save();
+            } catch (\Throwable $exception) {
+                $message = $exception->getMessage();
+                throw new TransactionServiceException($message);
+            }
         }
     }
 }

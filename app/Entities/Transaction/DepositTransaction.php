@@ -2,7 +2,7 @@
 
 namespace App\Entities\Transaction;
 
-class DepositTransaction
+class DepositTransaction extends Transaction
 {
 
 }

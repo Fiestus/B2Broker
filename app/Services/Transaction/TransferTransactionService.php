@@ -5,6 +5,8 @@ namespace App\Services\Transaction;
 use App\DTO\TransactionData;
 use App\DTO\TransferTransactionData;
 use App\Entities\Account\Account;
+use App\Entities\Transaction\TransferTransaction;
+use App\Exceptions\TransactionServiceException;
 
 class TransferTransactionService extends TransactionService
 {
@@ -27,11 +29,22 @@ class TransferTransactionService extends TransactionService
         $senderBalance = $this->sender->getBalance();
         $recipientBalance = $this->recipient->getBalance();
 
-        // TODO: Maybe Exception?
         if ($senderBalance >= $transferAmount) {
-            $this->sender->setBalance($senderBalance - $transferAmount);
-            $this->recipient->setBalance($recipientBalance + $transferAmount);
-            // TODO: What about transaction?
+            try {
+                $transaction = new TransferTransaction($this->transactionData->comment, $transferAmount);
+                $this->sender->addTransaction($transaction);
+                $this->sender->setBalance($senderBalance - $transferAmount);
+
+                $this->recipient->addTransaction($transaction);
+                $this->recipient->setBalance($recipientBalance + $transferAmount);
+
+                $this->sender->save();
+                $this->recipient->save();
+            } catch (\Throwable $exception) {
+                $message = $exception->getMessage();
+                throw new TransactionServiceException($message);
+            }
+
         }
     }
 }

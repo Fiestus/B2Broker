@@ -5,6 +5,8 @@ namespace App\Services\Transaction;
 use App\DTO\TransactionData;
 use App\Entities\Account\Account;
 use App\DTO\DepositTransactionData;
+use App\Entities\Transaction\DepositTransaction;
+use App\Exceptions\TransactionServiceException;
 
 class DepositTransactionService extends TransactionService
 {
@@ -20,8 +22,17 @@ class DepositTransactionService extends TransactionService
 
     public function performOperation()
     {
-        $amount = $this->account->getBalance() + $this->transactionData->amount->getAmount();
-        // TODO: What about transaction?
-        $this->account->setBalance($amount);
+        $depositAmount = $this->transactionData->amount->getAmount();
+
+        try {
+            $amount = $this->account->getBalance() + $depositAmount;
+            $transaction = new DepositTransaction($this->transactionData->comment, $depositAmount);
+            $this->account->addTransaction($transaction);
+            $this->account->setBalance($amount);
+            $this->account->save();
+        } catch (\Throwable $exception) {
+            $message = $exception->getMessage();
+            throw new TransactionServiceException($message);
+        }
     }
 }
