@@ -19,26 +19,10 @@ class FakeDataRepository extends Repository
         $accounts = [];
 
         while ($count >= 0) {
-            $account = AccountFaker::createAccount();
-
-            $accounts[] = $this->prepareRetrievedAmount($account);
+            $accounts[] = AccountFaker::createAccount();
             $count--;
         }
 
         return $accounts;
-    }
-
-    /**
-     * Remove coins from amount
-     *
-     * @param Account $account
-     * @return Account
-     */
-    private function prepareRetrievedAmount(Account $account): Account
-    {
-        $balance = Finance::substractCoins($account->getBalance());
-        $account->setBalance($balance);
-
-        return $account;
     }
 }

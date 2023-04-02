@@ -20,8 +20,6 @@ class DepositTransactionService extends TransactionService
 
     public function performOperation()
     {
-        var_dump($this->account->getBalance(), $this->transactionData->amount->getAmount());
-
         $amount = $this->account->getBalance() + $this->transactionData->amount->getAmount();
         // TODO: What about transaction?
         $this->account->setBalance($amount);
