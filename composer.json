@@ -3,7 +3,7 @@
     "description": "Test Task for PHP developers",
     "autoload": {
         "psr-4": {
-            "Ameshkov\\B2broker\\": "src/"
+            "App\\": "app/"
         }
     },
     "authors": [
@@ -12,6 +12,9 @@
             "email": "andrey@meshkov.kz"
         }
     ],
+    "require": {
+        "php": "^8.0"
+    },
     "require-dev": {
         "phpstan/phpstan": "^1.10"
     }
