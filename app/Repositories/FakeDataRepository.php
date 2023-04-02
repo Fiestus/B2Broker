@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Entities\Account\Account;
 use App\Helpers\AccountFaker;
-use App\Helpers\Finance;
 
 class FakeDataRepository extends Repository
 {

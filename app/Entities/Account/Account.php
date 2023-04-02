@@ -3,13 +3,14 @@
 namespace App\Entities\Account;
 
 use App\Entities\Transaction\Transaction;
+use App\Helpers\Arr;
 use App\Helpers\Finance;
 
 class Account
 {
     private int $balance;
 
-    private iterable $transctions;
+    private iterable $transctions = [];
 
     /**
      * Set account balance
@@ -52,6 +53,37 @@ class Account
     public function getTransactions(): iterable
     {
         return $this->transctions;
+    }
+
+    /**
+     * Retrieve sorted account transactions
+     *
+     * @param string $by
+     * @param $direction
+     * @return iterable<Transaction>
+     */
+    public function getSortedTransactions(string $sortedBy = null, $desc = false): iterable
+    {
+        $transactions = $this->transctions;
+
+        if ($sortedBy === Transaction::SORT_BY_COMMENT) {
+
+            if ($desc) {
+                $transactions = Arr::usortBinaryStringsDesc($transactions, $sortedBy);
+            } else {
+                $transactions = Arr::usortBinaryStringsAsc($transactions, $sortedBy);
+            }
+        }
+
+        if ($sortedBy === Transaction::SORT_BY_DATE) {
+            if ($desc) {
+                $transactions = Arr::usortDateStringsDesc($transactions, $sortedBy);
+            } else {
+                $transactions = Arr::usortDateStringsAsc($transactions, $sortedBy);
+            }
+        }
+
+        return $transactions;
     }
 
     /**
