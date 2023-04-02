@@ -8,17 +8,20 @@ use App\Helpers\Finance;
 
 class Account
 {
-    private int $balance;
+    private float|int $balance;
 
-    private iterable $transctions = [];
+    /**
+     * @var array<mixed>
+     */
+    private array $transctions = [];
 
     /**
      * Set account balance
      *
-     * @param int $balance
+     * @param float|int $balance
      * @return void
      */
-    public function setBalance(int $balance): void
+    public function setBalance(float|int $balance): void
     {
         $this->balance = $balance;
     }
@@ -26,9 +29,9 @@ class Account
     /**
      * Retrieve account balance
      *
-     * @return int
+     * @return float|int
      */
-    public function getBalance(): int
+    public function getBalance(): float|int
     {
         return $this->balance;
     }
@@ -41,14 +44,13 @@ class Account
      */
     public function addTransaction(Transaction $transaction): void
     {
-        // TODO: We should use Helper here
         $this->transctions[] = $transaction;
     }
 
     /**
      * Retrieve account transactions
      *
-     * @return iterable<Transaction>
+     * @return iterable<Transaction|mixed>
      */
     public function getTransactions(): iterable
     {
@@ -58,11 +60,11 @@ class Account
     /**
      * Retrieve sorted account transactions
      *
-     * @param string $by
-     * @param $direction
-     * @return iterable<Transaction>
+     * @param string|null $sortedBy
+     * @param bool $desc
+     * @return iterable<Transaction|mixed>
      */
-    public function getSortedTransactions(string $sortedBy = null, $desc = false): iterable
+    public function getSortedTransactions(string $sortedBy = null, bool $desc = false): iterable
     {
         $transactions = $this->transctions;
 

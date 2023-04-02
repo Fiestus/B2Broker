@@ -14,11 +14,11 @@ class Transaction
 
     private string $comment;
 
-    private int $amount;
+    private float|int $amount;
 
     private string $due_date;
 
-    public function __construct(string $comment, int $amount)
+    public function __construct(string $comment, float|int $amount)
     {
         $this->comment = $comment;
         $this->amount = $amount;
@@ -33,5 +33,13 @@ class Transaction
     public function getDueDate(): string
     {
         return $this->due_date;
+    }
+
+    /**
+     * @return float|int
+     */
+    public function getAmount(): float|int
+    {
+        return $this->amount;
     }
 }

@@ -23,7 +23,11 @@ class TransferTransactionService extends TransactionService
         $this->transactionData = $transactionData;
     }
 
-    public function performOperation()
+    /**
+     * @return void
+     * @throws TransactionServiceException
+     */
+    public function performOperation(): void
     {
         $transferAmount = $this->transactionData->amount->getAmount();
         $senderBalance = $this->sender->getBalance();

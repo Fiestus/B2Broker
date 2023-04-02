@@ -18,7 +18,7 @@ class AccountService
     /**
      * Retrieve all Accounts
      *
-     * @return iterable<Account>
+     * @return iterable<Account|mixed>
      */
     public function getAllAccounts(): iterable
     {

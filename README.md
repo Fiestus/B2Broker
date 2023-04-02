@@ -13,4 +13,5 @@ The transaction contains a comment, an amount, and a due date.
 - get all account transactions sorted by comment in alphabetical order.
 - get all account transactions sorted by date.
 
-
+### PHPStan:
+![](../../Desktop/Снимок экрана 2023-04-03 в 01.52.21.png)

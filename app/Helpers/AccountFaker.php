@@ -14,7 +14,8 @@ class AccountFaker
     public static function createAccount(): Account
     {
         $account = new Account();
-        $account->setBalance(Finance::addCoins(rand(0, 1500000)));
+        $amount = rand(0, 1500000);
+        $account->setBalance(Finance::addCoins($amount));
 
         return $account;
     }

@@ -20,7 +20,11 @@ class WithdrawalTransactionService extends TransactionService
         $this->transactionData = $transactionData;
     }
 
-    public function performOperation()
+    /**
+     * @return void
+     * @throws TransactionServiceException
+     */
+    public function performOperation(): void
     {
         $currentAmount = $this->account->getBalance();
         $withdrawalAmount = $this->transactionData->amount->getAmount();

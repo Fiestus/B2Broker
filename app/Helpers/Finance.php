@@ -8,9 +8,9 @@ class Finance
      * Used when saving amounts to the storage
      *
      * @param float|int $amount
-     * @return int
+     * @return float|int
      */
-    public static function addCoins(float|int $amount): int
+    public static function addCoins(float|int $amount): float|int
     {
         return $amount * 100;
     }
@@ -19,9 +19,9 @@ class Finance
      * Used when retrieving amounts from the storage
      *
      * @param float|int $amount
-     * @return int
+     * @return float|int
      */
-    public static function substractCoins(float|int $amount): int
+    public static function substractCoins(float|int $amount): float|int
     {
         return $amount / 100;
     }
